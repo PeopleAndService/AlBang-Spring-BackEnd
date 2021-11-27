@@ -1,14 +1,15 @@
 package com.pns.albangwas.domain.landmark;
 
 import com.pns.albangwas.domain.guestbook.GuestBook;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static javax.persistence.FetchType.*;
-
+@NoArgsConstructor
 @Getter
 @Entity
 public class Landmark {
@@ -26,15 +27,16 @@ public class Landmark {
     @Enumerated(EnumType.STRING)
     private LandmarkState state;
 
+    private String imageUrl;
+
     @OneToMany(mappedBy = "landmark")
     private List<GuestBook> guestBooks = new ArrayList<>();
 
-    @OneToOne(fetch = LAZY)
-    @JoinColumn(name = "landmark_image_id")
-    private LandmarkImage landmarkImage;
-
-    public void setImage(LandmarkImage landmarkImage) {
-        this.landmarkImage = landmarkImage;
-        landmarkImage.setLandmark(this);
+    @Builder
+    public Landmark(String name, Coordinate coordinate, LandmarkState state, String imageUrl) {
+        this.name = name;
+        this.coordinate = coordinate;
+        this.state = state;
+        this.imageUrl = imageUrl;
     }
 }
