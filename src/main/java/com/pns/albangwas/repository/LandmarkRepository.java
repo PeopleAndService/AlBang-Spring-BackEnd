@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface LandmarkRepository extends JpaRepository<Landmark, Long> {
 
-    List<Landmark> findAllByStateEquals(LandmarkState state);
+    List<Landmark> findLandmarksByState(LandmarkState state);
 }

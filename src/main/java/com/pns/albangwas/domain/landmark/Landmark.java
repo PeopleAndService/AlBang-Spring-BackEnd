@@ -15,8 +15,7 @@ import java.util.List;
 public class Landmark {
 
     @Id
-    @GeneratedValue
-    @Column(name = "landmark_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -27,7 +26,7 @@ public class Landmark {
     @Enumerated(EnumType.STRING)
     private LandmarkState state;
 
-    private String imageUrl;
+    private String imageName;
 
     @OneToMany(mappedBy = "landmark")
     private List<GuestBook> guestBooks = new ArrayList<>();
@@ -37,6 +36,6 @@ public class Landmark {
         this.name = name;
         this.coordinate = coordinate;
         this.state = state;
-        this.imageUrl = imageUrl;
+        this.imageName = imageUrl;
     }
 }

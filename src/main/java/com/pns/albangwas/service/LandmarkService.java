@@ -10,14 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @RequiredArgsConstructor
-@Service
 @Transactional(readOnly = true)
+@Service
 public class LandmarkService {
 
     private final LandmarkRepository landmarkRepository;
 
     public List<Landmark> getAllLandmarks() {
-        return landmarkRepository.findAllByStateEquals(LandmarkState.ACTIVE);
+        return landmarkRepository.findLandmarksByState(LandmarkState.ACTIVE);
     }
 
     @Transactional

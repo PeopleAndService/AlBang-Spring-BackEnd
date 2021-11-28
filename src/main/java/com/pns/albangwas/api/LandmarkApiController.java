@@ -5,8 +5,10 @@ import com.pns.albangwas.api.dto.landmark.LandmarkNormalResponseDto;
 import com.pns.albangwas.api.dto.landmark.LandmarkPostRequestDto;
 import com.pns.albangwas.domain.landmark.Landmark;
 import com.pns.albangwas.domain.landmark.LandmarkState;
+import com.pns.albangwas.exception.FileUploadException;
 import com.pns.albangwas.service.FileService;
 import com.pns.albangwas.service.LandmarkService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -20,59 +22,59 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @RestController
 public class LandmarkApiController {
 
     private final LandmarkService landmarkService;
     private final FileService fileUploadService;
 
-    @Autowired
-    public LandmarkApiController(LandmarkService landmarkService, FileService fileUploadService) {
-        this.landmarkService = landmarkService;
-        this.fileUploadService = fileUploadService;
-    }
-
     @PostMapping("/landmark/new")
     public LandmarkNormalResponseDto saveLandmark(
-            @RequestPart(name = "landmarkImg") MultipartFile landmarkImg,
-            @RequestPart(name = "json") LandmarkPostRequestDto landmarkPostRequestDto
+            @RequestPart(name = "image") MultipartFile landmarkImg,
+            @RequestPart(name = "body") LandmarkPostRequestDto landmarkPostRequestDto
     ) {
         if (landmarkImg.isEmpty()) {
-            return null;
+            throw new FileUploadException("파일이 존재하지 않습니다.");
         }
 
         String imagePath = fileUploadService.storeFile(landmarkImg);
 
-        return new LandmarkNormalResponseDto(landmarkService.saveLandmark(landmarkPostRequestDto.toEntity(imagePath, LandmarkState.ACTIVE)));
+        return new LandmarkNormalResponseDto(
+                landmarkService.saveLandmark(landmarkPostRequestDto.toEntity(imagePath, LandmarkState.ACTIVE))
+        );
     }
 
     @PostMapping("/landmark/application")
     public LandmarkNormalResponseDto applyLandmark(
-            @RequestPart(name = "landmarkImg") MultipartFile landmarkImg,
-            @RequestPart(name = "json") LandmarkPostRequestDto landmarkPostRequestDto
+            @RequestPart(name = "image") MultipartFile landmarkImg,
+            @RequestPart(name = "body") LandmarkPostRequestDto landmarkPostRequestDto
     ) {
         if (landmarkImg.isEmpty()) {
-            return null;
+            throw new FileUploadException("파일이 존재하지 않습니다.");
         }
 
         String imagePath = fileUploadService.storeFile(landmarkImg);
 
-        return new LandmarkNormalResponseDto(landmarkService.applyLandmark(landmarkPostRequestDto.toEntity(imagePath, LandmarkState.REGISTER)));
+        return new LandmarkNormalResponseDto(
+                landmarkService.applyLandmark(landmarkPostRequestDto.toEntity(imagePath, LandmarkState.REGISTER))
+        );
     }
 
     @GetMapping("/landmark/get")
     public LandmarkGetResponseDto getLandmarks() {
         List<Landmark> landmarks = landmarkService.getAllLandmarks();
-        List<LandmarkNormalResponseDto> result = landmarks.stream().map(LandmarkNormalResponseDto::new).collect(Collectors.toList());
 
-        return new LandmarkGetResponseDto(result);
+        return new LandmarkGetResponseDto(
+                landmarks.stream().map(LandmarkNormalResponseDto::new).collect(Collectors.toList())
+        );
     }
 
     @GetMapping("/file/get/{fileName:.+}")
     public ResponseEntity<Resource> downloadLandmarkImg(@PathVariable String fileName, HttpServletRequest request) {
         Resource resource = fileUploadService.loadFile(fileName);
-
         String contentType = null;
+
         try {
             contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
         } catch (IOException e) {
