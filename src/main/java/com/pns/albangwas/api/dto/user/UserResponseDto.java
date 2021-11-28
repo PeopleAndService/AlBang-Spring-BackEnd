@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class UserNormalResponseDto {
+public class UserResponseDto {
 
     private Long id;
     private String googleId;
@@ -14,7 +14,7 @@ public class UserNormalResponseDto {
     private String name;
     private String nickname;
 
-    public UserNormalResponseDto(User user) {
+    public UserResponseDto(User user) {
         this.id = user.getId();
         this.googleId = user.getGoogleId();
         this.email = user.getEmail();

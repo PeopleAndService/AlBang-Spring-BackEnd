@@ -9,24 +9,9 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
+      // 가입된 사용자 확인
       Optional<User> findByGoogleId(String googleId);
-      Optional<User> findByNickname(String nickname);
 
-//    private final EntityManager em;
-//
-//    public void save(User user) {
-//        em.persist(user);
-//    }
-//
-//    public User findOne(Long id) {
-//        return em.find(User.class, id);
-//    }
-//
-//    public List<User> findByGoogleId(String gid) {
-//        List<User> users = em.createQuery("select u from User u where u.googleId = :googleId", User.class)
-//                .setParameter("googleId", gid)
-//                .getResultList();
-//
-//        return users;
-//    }
+      // 닉네임 중복 확인
+      Optional<User> findByNickname(String nickname);
 }
