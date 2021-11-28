@@ -20,7 +20,6 @@ public class GuestBook extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "guestbook_id")
     private Long id;
 
     @Column(columnDefinition = "TEXT")

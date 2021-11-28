@@ -1,6 +1,7 @@
 package com.pns.albangwas.domain.user;
 
 import com.pns.albangwas.domain.guestbook.GuestBook;
+import com.pns.albangwas.domain.guestbook.GuestBookVan;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,9 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<GuestBook> guestBooks = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<GuestBookVan> guestBookVans = new ArrayList<>();
 
     @Builder
     public User(String googleId, String email, String name) {
