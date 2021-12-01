@@ -28,7 +28,8 @@ dependencies {
 
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.7.1'
 
-	runtimeOnly 'com.h2database:h2'
+	// runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
