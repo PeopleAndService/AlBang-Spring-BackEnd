@@ -47,7 +47,7 @@ public class UserService {
     public boolean validateNickname(String nickname) {
         Optional<User> hasNickname = userRepository.findByNickname(nickname);
 
-        return hasNickname.isEmpty();
+        return hasNickname.isPresent();
     }
 
     // 닉네임 수정
