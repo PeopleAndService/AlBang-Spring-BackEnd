@@ -12,7 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -42,6 +44,11 @@ public class GuestBookService {
 
     public List<GuestBook> findGuestBooksByLandmarkId(Long landmarkId) {
         return guestBookRepository.findGuestBooksByLandmarkId(landmarkId);
+    }
+
+    @Transactional
+    public void deleteGuestbook(Long guestbookId) {
+        guestBookRepository.deleteById(guestbookId);
     }
 
     @Transactional

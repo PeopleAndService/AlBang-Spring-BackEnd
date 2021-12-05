@@ -13,7 +13,6 @@ public class GuestBookNormalResponseDto {
     private Long id;
     private String content;
     private String anchor;
-    private String author;
     private String state;
     private LocalDateTime createdTime;
     private LocalDateTime updatedTime;
@@ -22,7 +21,6 @@ public class GuestBookNormalResponseDto {
         this.id = guestBook.getId();
         this.content = guestBook.getContent();
         this.anchor = guestBook.getAnchor();
-        this.author = guestBook.getUser().getNickname();
         this.state = guestBook.getState().name();
         this.createdTime = guestBook.getCreatedTime();
         this.updatedTime = guestBook.getUpdatedTime();

@@ -9,11 +9,11 @@ import java.util.List;
 @Getter
 public class GuestBookGetResponseDto {
 
-    private int numOfGuestBooks;
-    private List<GuestBookNormalResponseDto> results;
+    private int count;
+    private List<? extends GuestBookNormalResponseDto> results;
 
-    public GuestBookGetResponseDto(List<GuestBookNormalResponseDto> results) {
-        this.numOfGuestBooks = results.size();
+    public GuestBookGetResponseDto(List<? extends GuestBookNormalResponseDto> results) {
+        this.count = results.size();
         this.results = results;
     }
 }

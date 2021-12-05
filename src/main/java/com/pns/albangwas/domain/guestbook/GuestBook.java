@@ -33,11 +33,11 @@ public class GuestBook extends BaseTimeEntity {
     @OneToMany(mappedBy = "guestBook")
     private List<GuestBookVan> guestBookVans = new ArrayList<>();
 
-    @ManyToOne(fetch = LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "landmark_id")
     private Landmark landmark;
 

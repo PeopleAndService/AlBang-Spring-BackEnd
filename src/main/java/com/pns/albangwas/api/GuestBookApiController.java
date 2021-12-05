@@ -1,13 +1,13 @@
 package com.pns.albangwas.api;
 
-import com.pns.albangwas.api.dto.guestbook.GuestBookGetResponseDto;
-import com.pns.albangwas.api.dto.guestbook.GuestBookNormalResponseDto;
-import com.pns.albangwas.api.dto.guestbook.GuestBookPostRequestDto;
+import com.pns.albangwas.api.dto.guestbook.*;
 import com.pns.albangwas.domain.guestbook.GuestBook;
 import com.pns.albangwas.service.GuestBookService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,7 +36,7 @@ public class GuestBookApiController {
 
         return new GuestBookGetResponseDto(
                 result.stream()
-                        .map(GuestBookNormalResponseDto::new)
+                        .map(GuestBookFindByUserResponseDto::new)
                         .collect(Collectors.toList())
         );
     }
@@ -47,8 +47,14 @@ public class GuestBookApiController {
 
         return new GuestBookGetResponseDto(
                 result.stream()
-                        .map(GuestBookNormalResponseDto::new)
+                        .map(GuestBookFindByLandmarkResponseDto::new)
                         .collect(Collectors.toList())
         );
+    }
+
+    @DeleteMapping("guestbook/delete/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteGuestbook(@PathVariable(name = "id") Long guestbookId) {
+        guestBookService.deleteGuestbook(guestbookId);
     }
 }
