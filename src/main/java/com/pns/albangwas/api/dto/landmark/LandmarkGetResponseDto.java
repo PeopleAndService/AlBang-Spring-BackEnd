@@ -10,10 +10,10 @@ import java.util.List;
 public class LandmarkGetResponseDto {
 
     private int count;
-    private List<LandmarkNormalResponseDto> result;
+    private List<LandmarkNormalResponseDto> results;
 
-    public LandmarkGetResponseDto(List<LandmarkNormalResponseDto> result) {
-        this.count = result.size();
-        this.result = result;
+    public LandmarkGetResponseDto(List<LandmarkNormalResponseDto> results) {
+        this.count = results.size();
+        this.results = results;
     }
 }

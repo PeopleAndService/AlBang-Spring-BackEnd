@@ -47,8 +47,8 @@ public class LandmarkApiController {
 
     @PostMapping("/landmark/application")
     public LandmarkNormalResponseDto applyLandmark(
-            @RequestPart(name = "image") MultipartFile landmarkImg,
-            @RequestPart(name = "body") LandmarkPostRequestDto landmarkPostRequestDto
+            @RequestPart(value = "image") MultipartFile landmarkImg,
+            @RequestPart(value = "body") LandmarkPostRequestDto landmarkPostRequestDto
     ) {
         if (landmarkImg.isEmpty()) {
             throw new FileUploadException("파일이 존재하지 않습니다.");

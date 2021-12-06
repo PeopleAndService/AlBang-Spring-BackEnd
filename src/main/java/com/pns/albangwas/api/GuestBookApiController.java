@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,7 +46,7 @@ public class GuestBookApiController {
 
         return new GuestBookGetResponseDto(
                 result.stream()
-                        .map(GuestBookFindByLandmarkResponseDto::new)
+                        .map(GuestBookNormalResponseDto::new)
                         .collect(Collectors.toList())
         );
     }
@@ -56,5 +55,11 @@ public class GuestBookApiController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteGuestbook(@PathVariable(name = "id") Long guestbookId) {
         guestBookService.deleteGuestbook(guestbookId);
+    }
+
+    @PostMapping("guestbook/van")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void vanGuestbook(@RequestBody GuestBookVanRequestDto guestBookVanRequestDto) {
+        guestBookService.vanGuestBook(guestBookVanRequestDto.getGuestBookId(), guestBookVanRequestDto.getUserId());
     }
 }

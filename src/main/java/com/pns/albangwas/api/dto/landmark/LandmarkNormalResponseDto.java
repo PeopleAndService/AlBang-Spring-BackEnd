@@ -10,7 +10,7 @@ public class LandmarkNormalResponseDto {
 
     private Long id;
     private String name;
-    private String imageUrl;
+    private String imageName;
     private String latitude;
     private String longitude;
     private String status;
@@ -18,7 +18,7 @@ public class LandmarkNormalResponseDto {
     public LandmarkNormalResponseDto(Landmark landmark) {
         this.id = landmark.getId();
         this.name = landmark.getName();
-        this.imageUrl = landmark.getImageUrl();
+        this.imageName = landmark.getImageName();
         this.latitude = landmark.getCoordinate().getLatitude();
         this.longitude = landmark.getCoordinate().getLongitude();
         this.status = landmark.getState().name();

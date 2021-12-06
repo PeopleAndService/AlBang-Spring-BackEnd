@@ -52,7 +52,8 @@ public class GuestBookService {
     }
 
     @Transactional
-    public void vanGuestBook(GuestBookVan guestBookVan, Long guestBookId, Long userId) {
+    public void vanGuestBook(Long guestBookId, Long userId) {
+        GuestBookVan guestBookVan= new GuestBookVan();
         User reporter = userRepository.getById(userId);
         GuestBook guestBook = guestBookRepository.getById(guestBookId);
 

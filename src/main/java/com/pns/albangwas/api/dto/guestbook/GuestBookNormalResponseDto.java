@@ -16,6 +16,7 @@ public class GuestBookNormalResponseDto {
     private String state;
     private LocalDateTime createdTime;
     private LocalDateTime updatedTime;
+    private Long userId;
 
     public GuestBookNormalResponseDto(GuestBook guestBook) {
         this.id = guestBook.getId();
@@ -24,5 +25,6 @@ public class GuestBookNormalResponseDto {
         this.state = guestBook.getState().name();
         this.createdTime = guestBook.getCreatedTime();
         this.updatedTime = guestBook.getUpdatedTime();
+        this.userId = guestBook.getUser().getId();
     }
 }
